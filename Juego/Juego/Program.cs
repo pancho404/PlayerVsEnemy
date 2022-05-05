@@ -10,12 +10,8 @@ namespace Juego
     {
         static void Main(string[] args)
         {
-            Character player = new Player("P", 0, 0);
-            while (true)
-            {
-                player.DrawCharacter();
-                player.MoveCharacter();
-            }
+            Game game = new Game();
+            game.Run();
         }
     }
 }

@@ -22,16 +22,28 @@ namespace Juego
             switch (RandomValue)
             {
                 case 0:
-                    PosY -= 1;
+                    if (PosY > Console.WindowTop)
+                    {
+                        PosY -= 1;
+                    }
                     break;
                 case 1:
-                    PosY += 1;
+                    if (PosY < Console.WindowHeight)
+                    {
+                        PosY += 1;
+                    }
                     break;
                 case 2:
-                    PosX -= 1;
+                    if (PosX > Console.WindowLeft)
+                    {
+                        PosX -= 1;
+                    }
                     break;
                 case 3:
-                    PosX += 1;
+                    if (PosX < Console.WindowWidth - 1)
+                    {
+                        PosX += 1;
+                    }
                     break;
                 default:
                     break;

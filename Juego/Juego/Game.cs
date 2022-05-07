@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Juego
 {
@@ -14,9 +15,9 @@ namespace Juego
 
         public void Run()
         {
+            Init();
             while (player.Lives > 0)
             {
-                Init();
                 Update();
                 Draw();
             }
@@ -24,8 +25,9 @@ namespace Juego
         }
         public void Init()
         {
+            Console.CursorVisible = false;
             player = new Player("P", 0, 0, 5, 0);
-            enemy = new Enemy("E", Console.WindowWidth - 2, 0);
+            enemy = new Enemy("E", 10, 0);
         }
 
         public void Update()
@@ -42,8 +44,10 @@ namespace Juego
 
         public void Draw()
         {
-            enemy.DrawCharacter();
             player.DrawCharacter();
+            enemy.DrawCharacter();
+            Thread.Sleep(400);
+            Console.Clear();
         }
 
     }

@@ -33,11 +33,9 @@ namespace Juego
         }
 
         public void DrawCharacter()
-        {
-            Console.Clear();
+        {            
             Console.SetCursorPosition(PosX, PosY);
             Console.Write(Symbol);
-            Thread.Sleep(10);
         }
 
         public abstract void MoveCharacter();

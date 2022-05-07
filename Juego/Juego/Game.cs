@@ -12,7 +12,7 @@ namespace Juego
 
         Player player;
         Enemy enemy;
-
+        UI uI;
         public void Run()
         {
             Init();
@@ -23,29 +23,31 @@ namespace Juego
             }
 
         }
+
         public void Init()
         {
             Console.CursorVisible = false;
             player = new Player("P", 0, 0, 5, 0);
+            uI = new UI(player.Lives, player.Points);
             enemy = new Enemy("E", 10, 0);
         }
 
         public void Update()
         {
 
-
             if (Console.KeyAvailable)
             {
                 player.MoveCharacter();
             }
             enemy.MoveCharacter();
-
+            uI.Update(player);
         }
 
         public void Draw()
         {
             player.DrawCharacter();
             enemy.DrawCharacter();
+            uI.DrawUI();
             Thread.Sleep(400);
             Console.Clear();
         }

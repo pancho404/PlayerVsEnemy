@@ -10,6 +10,7 @@ namespace Juego
     {
         private int lives;
         private int points;
+        private bool attackMode;
         public Player(string Symbol, int PosX, int PosY, int Lives, int Points) : base(Symbol, PosY, PosX)
         {
             this.lives = Lives;
@@ -48,6 +49,21 @@ namespace Juego
         {
             get { return points; }
             set { points = value; }
+        }
+
+        public bool AttackMode
+        {
+            get { return attackMode; }
+            set { attackMode = value; }
+        }
+        public bool CheckCollision(Character enemy)
+        {
+            return (PosX == enemy.PosX && PosY == enemy.PosY);
+        }
+
+        public void EnterAttackMode()
+        {
+            attackMode = true;
         }
     }
 

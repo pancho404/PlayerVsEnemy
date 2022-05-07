@@ -8,27 +8,23 @@ namespace Juego
 {
     class UI
     {
-        private int PlayerLives;
-        private int PlayerPoints;
-
-        public UI(int playerLives, int playerPoints)
+        Player player;
+        public UI(Player player)
         {
-            this.PlayerLives = playerLives;
-            this.PlayerPoints = playerPoints;
+            this.player = player;
         }
 
         public void DrawUI()
         {
             Console.SetCursorPosition(100, 0);
-            Console.WriteLine("Lives: " + PlayerLives);
+            Console.WriteLine("Lives: " + player.Lives);
             Console.SetCursorPosition(100, 1);
-            Console.WriteLine("Points: " + PlayerPoints);
-        }
-
-        public void Update(Player player)
-        {
-            PlayerLives = player.Lives;
-            PlayerPoints = player.Points;
-        }
+            Console.WriteLine("Points: " + player.Points);
+            if (player.AttackMode)
+            {
+                Console.SetCursorPosition(100, 2);
+                Console.WriteLine("Attack");
+            }
+        }       
     }
 }

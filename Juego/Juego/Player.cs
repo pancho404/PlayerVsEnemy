@@ -15,6 +15,8 @@ namespace Juego
         ConsoleKey down;
         ConsoleKey right;
         ConsoleKey left;
+       
+
         public Player(string Symbol, int PosX, int PosY, int Lives, int Points, ConsoleKey up, ConsoleKey down, ConsoleKey right, ConsoleKey left) : base(Symbol, PosY, PosX)
         {
             this.lives = Lives;

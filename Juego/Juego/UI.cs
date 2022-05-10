@@ -9,33 +9,41 @@ namespace Juego
     class UI
     {
         Player player;
-        Player playerTwo;
-        public UI(Player player, Player playerTwo)
+        int posX;
+        int posY;
+        int offset;
+        public UI(Player player, int posX, int posY)
         {
             this.player = player;
-            this.playerTwo = playerTwo;
+            this.posX = posX;
+            this.posY = posY;
+            offset = 3;
         }
 
         public void DrawUI()
         {
-            Console.SetCursorPosition(100, 0);
-            Console.WriteLine("Player One Lives: " + player.Lives);
-            Console.SetCursorPosition(100, 1);
-            Console.WriteLine("Player One Points: " + player.Points);
-            Console.SetCursorPosition(100, 3);
-            Console.WriteLine("Player Two Lives: " + playerTwo.Lives);
-            Console.SetCursorPosition(100, 4);
-            Console.WriteLine("Player Two Points: " + playerTwo.Points);
+            Console.SetCursorPosition(posX, posY);
+            Console.WriteLine("Player Lives: " + player.Lives);
+            Console.SetCursorPosition(posX, posY+1);
+            Console.WriteLine("Player Points: " + player.Points);
+         
             if (player.AttackMode)
             {
-                Console.SetCursorPosition(100, 2);
-                Console.WriteLine("Player One Attack");
+                Console.SetCursorPosition(posX, posY+2);
+                Console.WriteLine("Attack");
             }
-            if (playerTwo.AttackMode)
-            {
-                Console.SetCursorPosition(100, 5);
-                Console.WriteLine("Player Two Attack");
-            }
+            
         }       
+
+        public int PosY
+        {
+            get { return posY; }
+            set { posY = value; }
+        }
+        public int Offset
+        {
+            get { return offset; }
+            set { offset = value; }
+        }
     }
 }

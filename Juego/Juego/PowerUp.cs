@@ -8,13 +8,15 @@ namespace Juego
 {
     class PowerUp : Character
     {
+        Random rnd;
         private bool active;
-        public PowerUp(String Symbol, int PosX, int PosY, bool active) : base(Symbol, PosY, PosX)
+        public PowerUp(String Symbol, int PosX, int PosY, bool active, Random rnd) : base(Symbol, PosY, PosX)
         {
             this.active = active;
+            this.rnd = rnd;
         }
 
-        public override void MoveCharacter()
+        public void Move()
         {
             Random rnd = new Random();
             PosX = rnd.Next(5, 8);

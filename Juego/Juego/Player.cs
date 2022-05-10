@@ -11,29 +11,37 @@ namespace Juego
         private int lives;
         private int points;
         private bool attackMode;
-        public Player(string Symbol, int PosX, int PosY, int Lives, int Points) : base(Symbol, PosY, PosX)
+        ConsoleKey up;
+        ConsoleKey down;
+        ConsoleKey right;
+        ConsoleKey left;
+        public Player(string Symbol, int PosX, int PosY, int Lives, int Points, ConsoleKey up, ConsoleKey down, ConsoleKey right, ConsoleKey left) : base(Symbol, PosY, PosX)
         {
             this.lives = Lives;
             this.points = Points;
+            this.up = up;
+            this.down = down;
+            this.right = right;
+            this.left = left;
         }
 
 
-        public override void MoveCharacter()
+        public void Move(ConsoleKey ck)
         {
-            ConsoleKeyInfo cki = Console.ReadKey(true);
-            if (cki.Key == ConsoleKey.UpArrow && PosY > Console.WindowTop)
+           
+            if (ck == up && PosY > Console.WindowTop)
             {
                 PosY -= 1;
             }
-            if (cki.Key == ConsoleKey.DownArrow && PosY < Console.WindowHeight)
+            if (ck == down && PosY < Console.WindowHeight)
             {
                 PosY += 1;
             }
-            if (cki.Key == ConsoleKey.RightArrow && PosX < Console.WindowWidth - 1)
+            if (ck == right && PosX < Console.WindowWidth - 1)
             {
                 PosX += 1;
             }
-            if (cki.Key == ConsoleKey.LeftArrow && PosX > Console.WindowLeft)
+            if (ck == left && PosX > Console.WindowLeft)
             {
                 PosX -= 1;
             }

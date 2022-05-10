@@ -9,14 +9,14 @@ namespace Juego
     class Enemy : Character
     {
 
-        Random rnd = new Random();
+        Random rnd;
         private int RandomValue;
-        public Enemy(String Symbol, int PosX, int PosY) : base(Symbol, PosY, PosX)
+        public Enemy(String Symbol, int PosX, int PosY, Random rnd) : base(Symbol, PosY, PosX)
         {
-
+            this.rnd = rnd;
         }
 
-        public override void MoveCharacter()
+        public void Move()
         {
             RandomValue = rnd.Next(0, 3);
             switch (RandomValue)

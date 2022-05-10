@@ -10,14 +10,16 @@ namespace Juego
     class Game
     {
 
-        Player player;
+        Player playerOne;
+        Player playerTwo;
         Enemy enemy;
         UI uI;
         PowerUp powerUp;
+        Random rnd;
         public void Run()
         {
             Init();
-            while (player.Lives > 0)
+            while (playerOne.Lives > 0)
             {
                 Update();
                 Draw();
@@ -27,12 +29,13 @@ namespace Juego
 
         public void Init()
         {
-            Random powerUpInitialPos = new Random();
+            rnd = new Random();
             Console.CursorVisible = false;
-            powerUp = new PowerUp("O", powerUpInitialPos.Next(5, 8), powerUpInitialPos.Next(5, 8), true);
-            player = new Player("P", 0, 0, 5, 0);
-            uI = new UI(player);
-            enemy = new Enemy("E", 10, 0);
+            powerUp = new PowerUp("O", rnd.Next(5, 8), rnd.Next(5, 8), true, rnd);
+            playerOne = new Player("P", 0, 0, 5, 0, ConsoleKey.UpArrow, ConsoleKey.DownArrow, ConsoleKey.RightArrow, ConsoleKey.LeftArrow);
+            playerTwo = new Player("T", 4, 4, 5, 0, ConsoleKey.W, ConsoleKey.S, ConsoleKey.D, ConsoleKey.A);
+            uI = new UI(playerOne, playerTwo);
+            enemy = new Enemy("E", 10, 0, rnd);
         }
 
         public void Update()
@@ -40,54 +43,74 @@ namespace Juego
 
             if (Console.KeyAvailable)
             {
-                player.MoveCharacter();
+                ConsoleKeyInfo cki = Console.ReadKey(true);
+                playerOne.Move(cki.Key);
+                playerTwo.Move(cki.Key);
             }
-            if (player.CheckCollision(enemy))
+            if (playerOne.CheckCollision(enemy))
             {
-                if (!player.AttackMode)
+                if (!playerOne.AttackMode)
                 {
-                    decreasePlayerLives();
+                    DecreasePlayerLives(playerOne);
                 }
-                else if (player.AttackMode)
+                else if (playerOne.AttackMode)
                 {
-                    increasePlayerPoints();
-                    player.AttackMode = false;
+                    IncreasePlayerPoints(playerOne);
+                    playerOne.AttackMode = false;
                     powerUp.Active = true;
                 }
             }
-            if (player.CheckCollision(powerUp))
+            if (playerTwo.CheckCollision(enemy))
             {
-                powerUp.MoveCharacter();
-                player.EnterAttackMode();
+                if (!playerTwo.AttackMode)
+                {
+                    DecreasePlayerLives(playerTwo);
+                }
+                else if (playerTwo.AttackMode)
+                {
+                    IncreasePlayerPoints(playerTwo);
+                    playerTwo.AttackMode = false;
+                    powerUp.Active = true;
+                }
+            }
+            if (playerOne.CheckCollision(powerUp))
+            {
+                powerUp.Move();
+                playerOne.EnterAttackMode();
                 powerUp.Active = false;
             }
-            enemy.MoveCharacter();
+            if (playerTwo.CheckCollision(powerUp))
+            {
+                powerUp.Move();
+                playerTwo.EnterAttackMode();
+                powerUp.Active = false;
+            }
+            enemy.Move();
         }
 
         public void Draw()
         {
-            player.DrawCharacter();
+            playerOne.DrawCharacter();
+            playerTwo.DrawCharacter();
             enemy.DrawCharacter();
             if (powerUp.Active)
             {
                 powerUp.DrawCharacter();
             }
             uI.DrawUI();
-            Thread.Sleep(400);
+            Thread.Sleep(200);
             Console.Clear();
         }
 
-        public void decreasePlayerLives()
+        public void DecreasePlayerLives(Player player)
         {
-            Random rnd = new Random();
             player.Lives--;
             player.PosX = rnd.Next(0, 15);
             player.PosY = rnd.Next(0, 15);
 
         }
-        public void increasePlayerPoints()
+        public void IncreasePlayerPoints(Player player)
         {
-            Random rnd = new Random();
             player.Points++;
             enemy.PosX = rnd.Next(0, 15);
             enemy.PosY = rnd.Next(0, 15);

@@ -38,6 +38,5 @@ namespace Juego
             Console.Write(Symbol);
         }
 
-        public abstract void MoveCharacter();
     }
 }

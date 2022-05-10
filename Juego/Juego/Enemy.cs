@@ -18,7 +18,7 @@ namespace Juego
 
         public void Move()
         {
-            RandomValue = rnd.Next(0, 3);
+            RandomValue = rnd.Next(0, 4);
             switch (RandomValue)
             {
                 case 0:

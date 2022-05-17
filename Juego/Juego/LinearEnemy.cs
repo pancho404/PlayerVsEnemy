@@ -11,30 +11,22 @@ namespace Juego
         Random rnd;
         int RandomValue;
         bool direction;
+        LinearMovement linearMovement;
         public LinearEnemy(String symbol, int posX, int posY, Random rnd) : base(symbol, posX, posY, rnd)
         {
             this.rnd = rnd;
             RandomValue = rnd.Next(0, 2);
+            linearMovement = new LinearMovement();
         }
 
         public void LinearMove()
         {
-            if (direction)
-            {
-                PosX++;
-                if (PosX == 16)
-                {
-                    direction = !direction;
-                }
-            }
-            else
-            {
-                PosX--;
-                if (PosX == Console.WindowLeft)
-                {
-                    direction = !direction;
-                }
-            }
+            int posX = PosX;
+            int posY = PosY;
+            linearMovement.Move(ref posX, ref posY);
+            PosX = posX;
+            PosY = posY;
+                
         }
     }
 }

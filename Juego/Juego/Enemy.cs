@@ -10,44 +10,20 @@ namespace Juego
     {
 
         Random rnd;
-        private int RandomValue;
+        RandomMovement randomMovement;
         public Enemy(String Symbol, int PosX, int PosY, Random rnd) : base(Symbol, PosY, PosX)
         {
             this.rnd = rnd;
+            randomMovement = new RandomMovement(rnd);
         }
 
         public void Move()
         {
-            RandomValue = rnd.Next(0, 4);
-            switch (RandomValue)
-            {
-                case 0:
-                    if (PosY > Console.WindowTop)
-                    {
-                        PosY -= 1;
-                    }
-                    break;
-                case 1:
-                    if (PosY < Console.WindowHeight)
-                    {
-                        PosY += 1;
-                    }
-                    break;
-                case 2:
-                    if (PosX > Console.WindowLeft)
-                    {
-                        PosX -= 1;
-                    }
-                    break;
-                case 3:
-                    if (PosX < Console.WindowWidth - 1)
-                    {
-                        PosX += 1;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            int posX = PosX;
+            int posY = PosY;
+            randomMovement.Move(ref posX, ref posY);
+            PosX = posX;
+            PosY = posY;
         }
     }
 }
